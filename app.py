@@ -54,6 +54,21 @@ def _date(t):
     now = datetime.datetime.fromtimestamp(t / 1000)
     return u"%d年%d月%d日" % (now.year, now.month, now.day)
 
+def check_referer(referer):
+    referer_spam_blacklist = [
+        r'https?:\/\/(.+\.)?buttons-for-website\.com(/.*)?$',
+        r'https?:\/\/(.+\.)?7makemoneyonline\.com(/.*)?$',
+        r'https?:\/\/(.+\.)?semalt\.com(/.*)?$'
+    ]
+    for spam in referer_spam_blacklist:
+        if re.match(spam, referer):
+            flask.abort(403)
+
+@app.before_request
+def before_request():
+    referer = flask.request.referrer
+    if referer: check_referer(referer)
+
 @app.route('/favicon.ico')
 def favicon():
     return flask.send_from_directory(os.path.join(app.root_path, 'static'),
