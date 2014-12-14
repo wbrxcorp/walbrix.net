@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app="WalbrixNet">
+  <head>
+    <meta charset="utf-8">
+    <title>{%block title%}{%include "title.html"%}{%endblock%}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% if description %}<meta name="description" content="{{ description }}">{% endif %}
+    <meta name="author" content="ワルブリックス株式会社"/>
+    <meta property="og:title" content="{%include "title.html"%}"/>
+    <meta property="og:type" content="{%if not(category_name) and name=="index"%}website{%else%}article{%endif%}"/>
+    <meta property="og:url" content="http://www.walbrix.net/{%if prefix.startswith("walbrix/")%}{{prefix[8:]}}/{%endif%}{%if name != "index"%}{{name}}.html{%endif%}"/>
+    <meta property="og:site_name" content="Walbrix"/>
+    <meta property="article:publisher" content="https://www.facebook.com/wbrxcorp" />
+    {% if description %}<meta property="og:description" content="{{ description }}"/>{% endif %}
+    {% if page_image %}<meta property="og:image" content="{{ page_image }}"/>{% endif %}
+
+    <!-- Le styles -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <style>
+      .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+    </style>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.27/angular.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.27/angular-resource.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.2.10/angular-locale_ja-jp.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.0/ui-bootstrap-tpls.min.js"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    {% include "analytics.html" %}
+  </head>
+
+  <body>
+    <div class="navbar navbar-default navbar-static-top">
+      <div class="container" ng-init="navbarCollapsed=true">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" ng-click="navbarCollapsed = !navbarCollapsed">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Walbrix</a>
+        </div>
+        <div class="navbar-collapse collapse" collapse="navbarCollapsed">
+          <ul class="nav navbar-nav">
+            <li{%if name=="download" and prefix=="walbrix"%} class="active"{%endif%}><a href="/download.html">ダウンロード</a></li>
+            <li{%if name=="install" and prefix=="walbrix"%} class="active"{%endif%}><a href="/install.html">インストール</a></li>
+	    <li{%if name=="index" and prefix=="walbrix/va"%} class="active"{%endif%}><a href="/va/">仮想アプライアンス</a></li>
+	    <li class="dropdown" dropdown>
+	      <a href="#" class="dropdown-toggle" dropdown-toggle>サポート <b class="caret"></b></a>
+	      <ul class="dropdown-menu">
+		<li{%if name=="support" and prefix=="walbrix"%} class="active"{%endif%}><a href="/support.html">サポート情報</a></li>
+		<li><a href="http://forum.walbrix.net">サポートフォーラム</a></li>
+		<li><a href="https://twitter.com/wbsupport">Twitter</a></li>
+	      </ul>
+	    </li>
+            <li class="dropdown" dropdown>
+              <a href="#" class="dropdown-toggle" dropdown-toggle>ドキュメント <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+		<li><a href="/faq.html">よくあるご質問</a></li>
+		<li><a href="/changelog.html">更新履歴</a></li>
+                <li><a href="/tech/">技術情報</a></li>
+		<li><a href="/registration.html">シリアルナンバーについて</a></li>
+                <li><a href="/casestudy/">導入事例</a></li>
+		<li class="divider"></li>
+		<li><a href="/geeks.html">ギークの皆さんへ</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+    <div class="container">
+      {%if not suppress_page_header%}
+      <div class="page-header">
+	{% if page_image %}<div class="pull-right hidden-xs" style="margin-left:1em;"><img class="img-rounded" src="{{page_image}}"/></div>{%endif%}
+	<h1>{{ title }}</h1>
+	{%if description%}<p class="lead">{{description}}</p>{%endif%}
+	{%if description_more%}<p>{{description_more}}</p>{%endif%}
+	<div class="clearfix"></div>
+      </div>
+      {%endif%}
+
+      {%block content%}{{ content|safe }}{%endblock%}
+
+      {%if name == "index" and category_pages%}
+        <ul>
+        {%for page in category_pages%}
+          <li><a href="./{{page.name}}.html">{{page.title}}</a></li>
+        {%endfor%}
+        </ul>
+      {%endif%}
+
+      <div class="footer" style="border-top: 1px solid #eee;margin-top: 40px;padding-top: 40px;padding-bottom: 40px;">
+	<ul class="list-inline" style="padding-bottom:40px;">
+	  <li>Walbrix</li>
+	  <li><a href="/download.html">ダウンロード</a></li>
+	  <li><a href="/install.html">インストール</a></li>
+	  <li><a href="/va/">仮想アプライアンス</a></li>
+	  <li><a href="/changelog.html">更新履歴</a></li>
+	  <li><a href="/faq.html">よくあるご質問</a></li>
+	  <li><a href="/tech/">技術情報</a></li>
+	  <li><a href="/support.html">サポート</a></li>
+	  <li><a href="/registration.html">シリアルナンバーについて</a></li>
+	  <li><a href="/casestudy/">導入事例</a></li>
+	  <li><a href="/affiliates.html">おすすめ商品紹介</a></li>
+	  <li><a href="/geeks.html">ギークの皆さんへ</a></li>
+	</ul>
+
+	<p class="pull-right"><a href="/">トップへ戻る</a></p>
+
+        <p>&copy; <a href="http://www.walbrix.com/jp/">Walbrix Corporation</a> 2010-2014</p>
+      </div>
+
+    </div>
+
+    {%raw%}
+    <script type="text/ng-template" id="progress.html">
+      <div class="modal-header">
+        {{progress_message}}
+      </div>
+      <div class="modal-body">
+        <progressbar class="progress-striped active" animate="false" value="100">
+        </progressbar>
+      </div>
+    </script>
+    {%endraw%}
+  </body>
+</html>

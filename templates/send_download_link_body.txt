@@ -1,0 +1,32 @@
+Walbrixの高速ダウンロード用URLをお知らせいたします。
+
+{{request.url_root}}api/walbrix-latest-jp-DVD.iso
+
+ダウンロード完了後、ファイルを DVD-Rに「トラックイメージとして」書き込む
+ことで WalbrixのインストールDVDを作成できます。
+
+Walbrixのインストール手順についてはこちらを参照願います。
+{{request.url_root}}install.html 
+
+インストールDVDの作成が出来ない方、インストール対象のパソコンが DVDの
+読み込みに対応しているかどうかがわからない方は下記よりインストールCDを
+お買い求めください。（お支払いにはクレジットカードが利用できます）
+{{request.url_root}}purchase.html
+
+ご不明な点はサポート掲示板にてご質問いただくこともできます。
+http://forum.walbrix.net
+
+■■全文検索NASついに登場■■
+Walbrixを使って文書検索機能つきのNASを構築できます。
+個人利用は試用期限なしの実質無料。ぜひお試しください。
+http://www.walbrix.com/jp/product/oscar.html
+
+このメールは
+{{request.url_root}}download.html 
+から送信されています。お心当たりのない場合はどなたかがメールアドレスの
+入力を間違えたことが考えられますので、お手数ですが本メールを削除願います。
+
+---
+ワルブリックス株式会社
+Walbrixサポート担当 <support@walbrix.net>
+{{request.url_root}}

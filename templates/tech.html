@@ -1,0 +1,19 @@
+{% extends "page.html" %}
+
+{%block contents%}
+<div class="hero-unit" style="padding:2em;">
+  {% if page_image %}<div class="pull-right visible-desktop" style="margin-left:1em;"><img class="img-polaroid" src="{{page_image}}"/></div>{% endif %}
+  <h2><small>Walbrix &raquo; 技術情報</small><br/>{{title}}</h2>
+  {%if description%}<p>{{description}}</p>{% endif %}
+  {% include "social.html" %}
+  <div style="clear:right;"></div>
+</div>
+<ul class="breadcrumb">
+  <li><a href="/">ホーム</a> <span class="divider">/</span></li>
+  <li><a href="/tech/">技術情報</a> <span class="divider">/</span></li>
+  <li class="active">{{title}}</li>
+</ul>
+{%include "banner-horizontal.html"%}
+{{ content|safe }}
+
+{%endblock%}

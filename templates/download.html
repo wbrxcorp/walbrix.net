@@ -1,0 +1,93 @@
+{% extends "page.html" %}
+
+{%block title%}{{title}} - Walbrix{%endblock%}
+
+{%block content%}
+<div class="panel panel-danger">
+      <div class="panel-heading"><span class="glyphicon glyphicon-exclamation-sign"></span> ダウンロード版は DVD-R専用です</div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-sm-7">
+            <p>DVD-Rディスクの書き込みができる環境をお持ちでない方、インストール対象のパソコンがDVDの読み込みに対応しているかどうかわからない（古いPCはCDにしか対応していないことがあります）方は<strong>インストールCD</strong>をご購入下さい。</p>
+          </div>
+          <div class="col-sm-5">
+            <p><a class="btn btn-lg btn-success btn-block" style="white-space: normal" href="purchase.html"><span class="glyphicon glyphicon-shopping-cart"></span> CD版の購入ページへ<br><small>クレジットカードがご利用になれます</small></a></p>
+          </div>
+        </div>
+      </div>
+</div>
+
+{{is_mobile}}
+
+<div ng-controller="DownloadController">
+  <div class="panel panel-warning">
+    <div class="panel-heading">ライセンスと免責事項</div>
+    <div class="panel-body">
+      {%if is_html5_compliant%}
+        {% include "agreement_html5.html" %}
+      {%else%}
+        {% include "agreement_legacy.html" %}
+      {%endif%}
+    </div>
+  </div>
+
+      {%if is_html5_compliant %}
+      <p class="text-center"><big><label class="checkbox-inline"><input type="checkbox" ng-model="agree"> 上記ライセンスと免責事項に同意する</label></big></p>
+      {%else%}
+      <p class="text-center"><big>上記ライセンスと免責事項に同意する方のみダウンロードしてください。</big></p>
+      {%endif%}
+      {%if is_html5_compliant %}<h3>通常ダウンロード</h3>{%endif%}
+      <p class="text-center"><a class="btn btn-lg btn-primary btn-block" style="white-space: normal" {%if is_html5_compliant%}ng-disabled="!agree"{%endif%} href="http://hub.walbrix.net/walbrix-{{version}}-jp-DVD.iso"><img src="/static/img/iso9660.png"/> Walbrix {{version}}をダウンロード</a></p>
+      <div class="alert alert-warning">ダウンロード容量は約<strong>{{size_in_gb}}GB</strong>です。スマートフォンやタブレットなどモバイル機器でのダウンロードには適しません。</div>
+      {%if is_html5_compliant%}
+      <h3>高速ダウンロード <small>後でダウンロードされる方もこちら</small></h3>
+      <p>光ファイバなどの高速回線をご利用の方や、後でダウンロードされる方は高速ダウンロードをご利用ください。メールアドレスを入力していただきますと、高速ダウンロード用のリンクがメールで送信されます。</p>
+      <div class="alert alert-warning">入力されたメールアドレスがこの目的以外のために使用されることはありません。</div>
+      <form name="fastDownloadForm">
+        <div class="input-group">
+          <input type="email" class="form-control" placeholder="メールアドレス" name="email" ng-model="email" required>
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button" ng-disabled="!fastDownloadForm.$valid || !agree" ng-click="send_fast_download_link()"><span class="glyphicon glyphicon-envelope"></span> メール送信</button>
+          </span>
+        </div>
+        <p ng-show="!agree" class="text-danger">「ライセンスと免責事項」に同意願います。</p>
+      </form>
+      {%raw%}<p ng-show="message" class="text-danger">{{message}}</p>{%endraw%}
+      <br>
+      {%endif%}
+</div>
+
+<div class="panel panel-info">
+      <div class="panel-heading">ダウンロード版Walbrixの動作条件</div>
+      <div class="panel-body">
+	<ul style="padding-left:1em;">
+          <li>Pentium4世代以降のCPUを搭載したPC</li>
+          <li>512MB以上のRAM (64bitシステムの場合 768MB)</li>
+          <li>10GB以上のHDD/SSD</li>
+          <li>インターネットへアクセス可能な有線LAN接続</li>
+          <li>DVD-ROMドライブ</li>
+	</ul>
+	<p>※Walbrixはマルチブートインストールに対応していません。必ずディスク全体を初期化する必要があります。</small></p>
+      </div>
+</div>
+
+<!-- Google Code for download.html Conversion Page -->
+<script type="text/javascript">
+/* <![CDATA[ */
+var google_conversion_id = 1017691165;
+var google_conversion_language = "en";
+var google_conversion_format = "2";
+var google_conversion_color = "ffffff";
+var google_conversion_label = "uWfmCMuZ2QcQnfii5QM";
+var google_remarketing_only = false;
+/* ]]> */
+</script>
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+</script>
+<noscript>
+<div style="display:inline;">
+<img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/1017691165/?label=uWfmCMuZ2QcQnfii5QM&amp;guid=ON&amp;script=0"/>
+</div>
+</noscript>
+
+{%endblock%}

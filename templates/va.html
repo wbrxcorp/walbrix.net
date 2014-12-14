@@ -1,0 +1,22 @@
+{% extends "page.html" %}
+
+{%block contents%}
+<div class="row">
+  <div class="col-sm-9">
+    {{ contents|safe }}
+
+    <p><a href="http://www.wbport.com"><img src="http://ad.walbrix.com/static/img/wbport.jpg" class="img-responsive img-rounded"></a></p>
+  </div>
+  <div class="col-sm-3" style="border-left:solid;border-width:1px;border-color:#eee;">
+    <h3>Walbrixが提供するその他の仮想アプライアンス</h3>
+    <p><small><a href="./">仮想アプライアンスとは？</a></small></p>
+    {%for page in category_pages %}
+      {%if page.name != name and "page_image" in page%}
+        <a href="./{{page.name}}.html"><img src="{{page.page_image}}" class="img-rounded img-responsive"></a>
+	<p><a href="./{{page.name}}.html">{{page.title}}</a></p>
+      {%endif%}
+    {%endfor%}
+    <a href="./">もっと見る...</a>
+  </div>
+</div>
+{%endblock%}

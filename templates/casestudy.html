@@ -1,0 +1,25 @@
+{% extends "page.html" %}
+{%block title%}{%if name == "index"%}{{title}} - Walbrix{%else%}{{title}} - 導入事例 - Walbrix{%endif%}{%endblock%}
+{%block contents%}
+<div class="hero-unit">
+  {% if page_image %}<div class="pull-right visible-desktop" style="margin-left:1em;"><img class="img-polaroid" src="{{page_image}}"/></div>{% endif %}
+  <h2>{%if name == "index"%}{{title}}{%else%}<small>導入事例</small><br/>{{title}}{%endif%}</h2>
+  <p>{{description}}</p>
+
+  {%include "social.html"%}
+
+  <div style="clear:right;"></div>
+</div>
+<ul class="breadcrumb">
+  <li><a href="/">ホーム</a> <span class="divider">/</span></li>
+{% if name != "index"%}
+  <li><a href="/casestudy/">導入事例</a> <span class="divider">/</span></li>
+{% endif %}
+  <li class="active">{{title}}</li>
+</ul>
+{% include "banner-horizontal.html" %}
+{{ contents|safe }}
+
+{% include "banner-horizontal.html" %}
+
+{%endblock%}
