@@ -1,5 +1,7 @@
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
+# emerge markdown (< 2.5)
+# https://github.com/dart-lang/py-gfm
 
 import os,json,re,urllib2,datetime
 import flask,werkzeug,markdown,feedgenerator,pytz
@@ -78,6 +80,12 @@ def favicon():
 def robots():
     return flask.send_from_directory(os.path.join(base_dir, 'static'),
                                'robots.txt', mimetype='text/plain')
+
+@app.route('/no_report')
+def no_report():
+    response = flask.make_response("OK")
+    response.set_cookie("no_report", "1", expires="Tue, 1-Jan-2030 00:00:00 GMT", max_age=86400*365*20)
+    return response
 
 def get_json_from_cms(url, throw_404=True):
     try:
