@@ -202,7 +202,8 @@ def page(page_name):
 def rss(path):
     page_length = 100
 
-    data = get_json_from_cms("%s/?limit=%d" % (path,page_length))
+    #data = get_json_from_cms("%s/?limit=%d" % (path,page_length))
+    data = get_directory(path, None, page_length)
     entries = data["entries"]
 
     link = "%s%s/" % (flask.request.url_root,path)
@@ -212,7 +213,7 @@ def rss(path):
 
     feed = feedgenerator.Rss201rev2Feed(title=title,link=link,feed_url=flask.request.base_url,description=description,language=lang)
     for entry in entries[:50]:
-        date = datetime.datetime.fromtimestamp(entry["published_at"] / 1000)
+        date = entry["published_at"]
         link = "%s%s/%s.html" % (flask.request.url_root,path, entry["name"])
         feed.add_item(title=entry["title"],link=link, description=entry["description"] if "description" in entry else None,pubdate=datetime.datetime(date.year,date.month,date.day,0,0,0,0,timezone),unique_id=link)
     response = flask.make_response(feed.writeString('utf-8'))
