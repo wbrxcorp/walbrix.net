@@ -245,7 +245,7 @@ def page_with_path(path,page_name):
 
     if "next" in entry:
         #entry["next"] = get_json_from_cms("%s/%s.json" % (path,entry["next"]), False)
-        entry["next"] = get_page(path, path,entry["next"], False)
+        entry["next"] = get_page(path,entry["next"], False)
 
     if entry.get("apply_jinja2"):
         entry["content"] = flask.render_template_string(entry["content"], **entry)
